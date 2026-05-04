@@ -404,6 +404,39 @@ section {
   z-index: 1;
 }
 
+/* ========== DOT NAV ========== */
+.dot-nav {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dot-nav a {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--gray);
+  background: transparent;
+  transition: background 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.dot-nav a.active {
+  background: var(--black);
+  border-color: var(--black);
+  transform: scale(1.25);
+}
+
+.dot-nav a:hover {
+  background: var(--gray);
+}
+
 /* ========== ANIMATIONS ========== */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -428,6 +461,15 @@ section {
 <!-- Blur edges -->
 <div class="blur-edge blur-top"></div>
 <div class="blur-edge blur-bottom"></div>
+
+<!-- Dot navigation -->
+<nav class="dot-nav">
+  <a href="#hero" data-section="hero"></a>
+  <a href="#benefit" data-section="benefit"></a>
+  <a href="#method" data-section="method"></a>
+  <a href="#who" data-section="who"></a>
+  <a href="#cta" data-section="cta"></a>
+</nav>
 
 <!-- SCREEN 1 — HERO -->
 <section class="hero" id="hero">
@@ -528,6 +570,21 @@ window.addEventListener('scroll', () => {
     scrollInd.style.transition = 'opacity 0.5s ease';
   }
 }, { passive: true });
+
+// Dot nav
+const dots = document.querySelectorAll('.dot-nav a');
+const sections = document.querySelectorAll('section');
+const secObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      dots.forEach(d => d.classList.remove('active'));
+      const dot = document.querySelector(`.dot-nav a[data-section="${entry.target.id}"]`);
+      if (dot) dot.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => secObserver.observe(s));
+dots[0].classList.add('active');
 </script>
 </body>
 </html>
