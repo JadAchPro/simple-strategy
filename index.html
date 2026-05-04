@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balian — All marketing made simple.</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #111111;
+  --white: #ffffff;
+  --gray: #888888;
+  --light-gray: #e5e5e5;
+  --grid-color: rgba(220, 215, 208, 0.22);
+  --bg: #faf9f7;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-style: normal;
+  background: var(--bg);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Architect grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+/* Subtle major grid lines every 5 cells */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(200, 195, 188, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 195, 188, 0.15) 1px, transparent 1px);
+  background-size: 160px 160px;
+  pointer-events: none;
+}
+
+/* Key messages only — EB Garamond italic */
+h1, h2 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+}
+
+/* ========== SECTIONS ========== */
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  scroll-snap-align: start;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== SCREEN 1 — HERO ========== */
+.hero { text-align: center; }
+
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeIn 1s ease 0.3s forwards;
+}
+
+.hero h1 strong {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.btn-discover {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: transparent;
+  border: 1px solid var(--black);
+  padding: 12px 44px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 1s ease 0.8s forwards;
+}
+
+.btn-discover:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* ========== SCREEN 2 — BENEFIT ========== */
+.benefit {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.benefit h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+}
+
+.benefit h2 strong {
+  font-weight: 700;
+}
+
+.benefit p {
+  font-size: 1rem;
+  font-style: normal;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ========== SCREEN 3 — METHOD ========== */
+.method {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.method-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 32px;
+}
+
+.method h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.35;
+  margin-bottom: 48px;
+}
+
+.method h2 strong { font-weight: 700; }
+
+.method-steps {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+}
+
+.method-step {
+  text-align: center;
+  max-width: 200px;
+}
+
+.step-number {
+  font-family: 'EB Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--light-gray);
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.step-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-style: normal;
+  margin-bottom: 8px;
+}
+
+.step-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-style: normal;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* ========== SCREEN 4 — WHO ========== */
+.who {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.who-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 32px;
+}
+
+.who h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  margin-bottom: 40px;
+}
+
+.founders {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.founder { text-align: center; }
+
+.founder-avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: var(--light-gray);
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.8rem; font-weight: 400; font-style: italic;
+  color: var(--gray);
+}
+
+.founder-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: normal;
+  margin-bottom: 4px;
+}
+
+.founder-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-style: normal;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* ========== SCREEN 5 — CTA ========== */
+.cta { text-align: center; }
+
+.cta h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.cta-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-style: normal;
+  color: var(--gray);
+  margin-bottom: 48px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 14px 40px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-cta-primary {
+  background: var(--black);
+  color: var(--white);
+  border: 1px solid var(--black);
+}
+.btn-cta-primary:hover {
+  background: transparent;
+  color: var(--black);
+}
+
+.btn-cta-secondary {
+  background: transparent;
+  color: var(--black);
+  border: 1px solid var(--black);
+}
+.btn-cta-secondary:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* ========== SCROLL INDICATOR ========== */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fadeIn 1s ease 1.5s forwards;
+}
+
+.scroll-indicator span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  font-style: normal;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.scroll-arrow {
+  width: 1px; height: 24px; background: var(--light-gray);
+  position: relative;
+}
+.scroll-arrow::after {
+  content: '';
+  position: absolute; bottom: 0; left: -3px;
+  width: 7px; height: 7px;
+  border-right: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+  transform: rotate(45deg);
+}
+
+/* ========== REVEAL ========== */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  text-align: center; padding: 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; font-style: normal;
+  color: var(--gray);
+  border-top: 1px solid var(--light-gray);
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+  section { padding: 40px 24px; }
+  .founders { flex-direction: column; gap: 32px; }
+  .method-steps { flex-direction: column; align-items: center; gap: 40px; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .btn-cta { width: 100%; max-width: 300px; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1 — HERO -->
+<section class="hero" id="hero">
+  <h1>All marketing<br>made <strong>simple.</strong></h1>
+  <a href="#benefit" class="btn-discover">Discover</a>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- SCREEN 2 — BENEFIT -->
+<section class="benefit" id="benefit">
+  <div class="reveal">
+    <h2>See <strong>exactly</strong> where your marketing<br>is losing money.</h2>
+    <p>One clear picture of your entire strategy. Every weakness identified, every opportunity measured — in euros, not jargon.</p>
+  </div>
+</section>
+
+<!-- SCREEN 3 — METHOD -->
+<section class="method" id="method">
+  <div class="reveal">
+    <div class="method-label">How it works</div>
+    <h2>Three steps. <strong>Total clarity.</strong></h2>
+    <div class="method-steps">
+      <div class="method-step">
+        <div class="step-number">I</div>
+        <div class="step-title">Audit</div>
+        <div class="step-desc">We map your entire marketing — acquisition, conversion, retention. Every channel, every number.</div>
+      </div>
+      <div class="method-step">
+        <div class="step-number">II</div>
+        <div class="step-title">Diagnose</div>
+        <div class="step-desc">We pinpoint what's costing you money and rank every fix by impact. No guesswork.</div>
+      </div>
+      <div class="method-step">
+        <div class="step-number">III</div>
+        <div class="step-title">Act</div>
+        <div class="step-desc">A prioritized action plan you can execute today. We stay to make sure it works.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREEN 4 — WHO -->
+<section class="who" id="who">
+  <div class="reveal">
+    <div class="who-label">Who we are</div>
+    <h2>Two people obsessed with making<br>marketing actually work.</h2>
+    <div class="founders">
+      <div class="founder">
+        <div class="founder-avatar">J</div>
+        <div class="founder-name">Jad</div>
+        <div class="founder-role">Strategy & Growth</div>
+      </div>
+      <div class="founder">
+        <div class="founder-avatar">F</div>
+        <div class="founder-name">Farah</div>
+        <div class="founder-role">Brand & Creative</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREEN 5 — CTA -->
+<section class="cta" id="cta">
+  <div class="reveal">
+    <h2>Let's talk.</h2>
+    <p class="cta-sub">20 minutes. No commitment. Just clarity.</p>
+    <div class="cta-buttons">
+      <a href="https://calendly.com/VOTRE-LIEN" target="_blank" class="btn-cta btn-cta-primary">
+        Book a call
+      </a>
+      <a href="https://wa.me/VOTRE-NUMERO" target="_blank" class="btn-cta btn-cta-secondary">
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  Balian · 2026
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => observer.observe(el));
+
+const scrollInd = document.querySelector('.scroll-indicator');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100 && scrollInd) {
+    scrollInd.style.opacity = '0';
+    scrollInd.style.transition = 'opacity 0.5s ease';
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
